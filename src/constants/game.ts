@@ -47,3 +47,4 @@ export const CELEBRATION_PARTICLES: CelebrationParticle[] = [
   { id: 11, icon: "✨", left: "94%", delay: "0.7s" },
   { id: 12, icon: "🌹", left: "5%", delay: "1.5s" },
 ];
+

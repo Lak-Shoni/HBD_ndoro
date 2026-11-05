@@ -231,3 +231,4 @@ export default function CatchWaterModal({ onWin, onClose }: CatchWaterModalProps
     </div>
   );
 }
+

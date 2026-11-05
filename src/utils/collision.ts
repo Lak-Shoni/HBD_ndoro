@@ -18,3 +18,4 @@ export function isNearZone(
     player.y + playerSize > zone.y - buffer
   );
 }
+

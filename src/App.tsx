@@ -136,7 +136,7 @@ export default function App() {
       if (activeModal === "none") {
         setPlayerPos((prev) => {
           let { x, y } = prev;
-          const speed = MAP_CONFIG.SPEED;
+          const speed = MAP_CONFIG.MOVE_SPEED;
           const keys = keysPressed.current;
 
           if (keys.has("w") || keys.has("W") || keys.has("ArrowUp")) y -= speed;

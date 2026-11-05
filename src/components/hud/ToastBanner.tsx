@@ -13,3 +13,4 @@ export default function ToastBanner({ message }: ToastBannerProps) {
     </div>
   );
 }
+
