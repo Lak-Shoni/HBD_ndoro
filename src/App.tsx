@@ -72,6 +72,53 @@ export default function App() {
     }
   }, []);
 
+  // Debug / Cheat Functions via Browser Console (Memudahkan Pengujian Langsung)
+  useEffect(() => {
+    const cheatFruit = () => {
+      setIsGameStarted(true);
+      setTreeStage(3);
+      setWaterCount(3);
+      setCompletedGames({ game1: true, game2: true, game3: true });
+      setActiveModal("none");
+      setToastMessage("🍎 Cheat Aktif: Pohon sudah berbuah lebat! Klik pohon untuk memetik buahnya!");
+      playSfx("win");
+      console.log(
+        "%c🍎 Cheat Berhasil: Pohon langsung berbuah (Tahap 3)! Dekati pohon lalu tekan Spasi/Enter atau klik pohon untuk memetik buah surat.",
+        "color: #10b981; font-weight: bold; font-size: 14px;"
+      );
+    };
+
+    const cheatLetter = () => {
+      setIsGameStarted(true);
+      setTreeStage(3);
+      setActiveModal("letter");
+      playSfx("win");
+      console.log(
+        "%c💌 Cheat Berhasil: Modal Buah Surat Harapan langsung dibuka!",
+        "color: #ec4899; font-weight: bold; font-size: 14px;"
+      );
+    };
+
+    window.cheatFruit = cheatFruit;
+    window.spawnFruit = cheatFruit;
+    window.cheatLetter = cheatLetter;
+    window.openLetter = cheatLetter;
+
+    console.log(
+      "%c🎮 Debug / Cheat Mode Tersedia:\n" +
+      "1. window.cheatFruit()  -> Buah langsung muncul di pohon (Tahap 3) 🍎\n" +
+      "2. window.cheatLetter() -> Langsung buka modal surat ucapan & RSVP 💌",
+      "color: #b45309; font-weight: bold; font-size: 12px; background: #fffdf7; padding: 8px; border: 2px solid #d4a373; border-radius: 8px;"
+    );
+
+    return () => {
+      delete window.cheatFruit;
+      delete window.spawnFruit;
+      delete window.cheatLetter;
+      delete window.openLetter;
+    };
+  }, []);
+
   // Handler Mulai Petualangan dari Start Screen
   const handleStartGame = () => {
     setIsGameStarted(true);
@@ -370,4 +417,5 @@ export default function App() {
       )}
     </main>
   );
+
 }

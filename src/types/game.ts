@@ -58,3 +58,14 @@ export interface CelebrationParticle {
   delay: string;
 }
 
+// Window global interface untuk debug / cheat functions via browser console
+declare global {
+  interface Window {
+    cheatFruit?: () => void;
+    spawnFruit?: () => void;
+    cheatLetter?: () => void;
+    openLetter?: () => void;
+  }
+}
+
+

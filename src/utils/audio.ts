@@ -118,3 +118,4 @@ export function playSfx(type: SfxType) {
     // Abaikan jika browser membatasi audio saat belum berinteraksi
   }
 }
+
