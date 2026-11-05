@@ -14,4 +14,4 @@ Tahap Amplop Tertutup (isEnvelopeOpen === false): Menampilkan visual amplop sura
 
 Tahap Isi Surat & Undangan (isEnvelopeOpen === true): Menampilkan efek kelopak bunga/hati berjatuhan, teks ucapan ulang tahun, dan kartu Undangan Kencan (Date Invitation) di bagian bawah.
 
-Tahap Konfirmasi RSVP (rsvpAccepted === true): Pemain dapat memilih opsi aktivitas/makanan kencan dan menekan tombol "Aku Mau & Pasti Datang! ❤️" yang akan memunculkan pesan konfirmasi romantis di layar.
+Tahap Konfirmasi RSVP (rsvpAccepted === true): Pemain dapat memilih opsi aktivitas/makanan kencan dan menekan tombol "Aku Mau & Pasti Datang! ❤️" yang akan membuka WhatsApp dengan pesan konfirmasi romantis: "Terima kasih sayang, aku terima undangannya dan siap hadir! ❤️", lalu memunculkan pesan konfirmasi di layar.

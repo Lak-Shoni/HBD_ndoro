@@ -22,12 +22,12 @@ export const ZONES: Zone[] = [
 
 // Pos 1: Foto Pasangan Kartu Memori (Issue #26)
 export const CARD_ITEMS: string[] = [
-  "/photos/memori-1.JPG",
-  "/photos/memori-2.JPG",
-  "/photos/memori-3.JPG",
-  "/photos/memori-4.JPG",
-  "/photos/memori-5.JPG",
-  "/photos/memori-6.JPG",
+  "/photos/memori-1.jpeg",
+  "/photos/memori-2.jpeg",
+  "/photos/memori-3.jpeg",
+  "/photos/memori-4.jpeg",
+  "/photos/memori-5.jpeg",
+  "/photos/memori-6.jpeg",
 ];
 
 // Pos 3: Titik Koordinat Tetes Air Tersembunyi

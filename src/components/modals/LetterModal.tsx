@@ -2,6 +2,8 @@ import { useState } from "react";
 import { CELEBRATION_PARTICLES } from "../../constants/game";
 import { playSfx } from "../../utils/audio";
 
+const RSVP_WHATSAPP_NUMBER = "6282257168691";
+
 interface LetterModalProps {
   onClose: () => void;
   onResetGame: () => void;
@@ -14,7 +16,7 @@ function PolaroidPhoto() {
 
   const handleError = () => {
     if (imgSrc.endsWith(".JPG")) {
-      setImgSrc("/photos/polaroid-ultah.jpg");
+      setImgSrc("/photos/polaroid-ultah.jpeg");
     } else {
       setHasError(true);
     }
@@ -33,12 +35,14 @@ function PolaroidPhoto() {
         ) : (
           <div className="flex flex-col items-center justify-center p-4 text-center">
             <span className="text-5xl animate-bounce mb-1">🎂💖</span>
-            <span className="text-xs font-bold text-rose-500">Momen Terindah Kita</span>
+            <span className="text-xs font-bold text-rose-500">
+              Momen Terindah Kita
+            </span>
           </div>
         )}
       </div>
       <p className="text-xs font-black text-stone-700 mt-2.5 tracking-tight text-center italic">
-        Happy Birthday, My Favorite Person! 💕
+        Happy Birthday, Ndoro Putri 💕
       </p>
     </div>
   );
@@ -54,7 +58,9 @@ export default function LetterModal({
   onResetGame,
 }: LetterModalProps) {
   const [isEnvelopeOpen, setIsEnvelopeOpen] = useState<boolean>(false);
-  const [selectedPlan, setSelectedPlan] = useState<string>("Dinner Romantis 🍽️");
+  const [selectedPlan, setSelectedPlan] = useState<string>(
+    "Dinner Romantis 🍽️",
+  );
   const [rsvpAccepted, setRsvpAccepted] = useState<boolean>(false);
 
   const handleOpenEnvelope = () => {
@@ -70,6 +76,14 @@ export default function LetterModal({
   const handleAcceptRsvp = () => {
     playSfx("win");
     setRsvpAccepted(true);
+
+    const confirmationMessage =
+      "Terima kasih sayang, aku terima undangannya dan siap hadir! ❤️";
+    const whatsappUrl = `https://wa.me/${RSVP_WHATSAPP_NUMBER}?text=${encodeURIComponent(
+      confirmationMessage,
+    )}`;
+
+    window.location.assign(whatsappUrl);
   };
 
   return (
@@ -105,7 +119,8 @@ export default function LetterModal({
             Buah Surat Harapan
           </h2>
           <p className="text-[#7f5539] text-sm leading-relaxed mb-6 font-medium">
-            Kamu menemukan Buah Surat Harapan! Ada pesan spesial di dalamnya yang telah tumbuh bersama usaha dan kasih sayangmu.
+            Kamu menemukan Buah Surat Harapan! Ada pesan spesial di dalamnya
+            yang telah tumbuh bersama usaha dan kasih sayangmu.
           </p>
           <button
             type="button"
@@ -147,16 +162,17 @@ export default function LetterModal({
           {/* 3 Paragraf Isi Surat */}
           <div className="text-[#582f0e] text-sm sm:text-base leading-relaxed space-y-3 text-left font-medium mt-3">
             <p>
-              Halo Ndoro kesayanganku! Selamat bertambah usia ya. Melihatmu berhasil menyelesaikan tantangan di setiap pos—mulai dari mencocokkan kepingan memori kita, menangkap tetesan air dengan penuh sabar, hingga mencari hal-hal kecil yang tersembunyi—mengingatkanku pada betapa berharganya setiap langkah yang kita lewati bersama.
+              happy birthday, ateya! 🤍🎂 <br></br> akhirnya 23 tahun hehe. semoga di umur
+              yang tidak muda ini, kamu bisa menjadi pribadi yang lebih baik,
+              meraih semua mimpi kamu, selalu diberi kesehatan jasmani rohani,
+              dilancarkan rezekinya, dan dimudahkan segala urusannya.
             </p>
             <p>
-              Sama seperti Pohon Harapan yang kamu rawat dari sebutir bibit kecil hingga tumbuh mekar dan berbuah lebat berkat tiga ember air penuh perjuangan, cintaku dan rasa syukurku memilikimu pun akan selalu bertumbuh subur setiap hari.
-            </p>
-            <p>
-              Semoga di usia yang baru ini, setiap langkahmu selalu dipeluk kebahagiaan, kesehatan, kemudahan, dan tawa yang tak pernah pudar. Terima kasih sudah selalu menjadi alasan terindah untuk tersenyum.
+              semoga kita masih bisa terus bersama dan saling nemenin di umur-umur
+              berikutnya yaa.  
             </p>
             <p className="text-right italic font-bold text-[#b7094c] pt-1">
-              — Dari yang selalu menyayangimu sepenuh hati 💕
+              — lopyuuu! 🫶🏻 <br></br> — shoni 💕
             </p>
           </div>
 
@@ -175,13 +191,19 @@ export default function LetterModal({
             </div>
 
             <div className="space-y-1.5 text-xs sm:text-sm text-[#7f5539] mb-4 font-semibold">
-              <p>📅 <strong>Waktu:</strong> Akhir Pekan Ini (Sabtu / Minggu)</p>
-              <p>📍 <strong>Lokasi:</strong> Tempat Spesial Kita</p>
-              <p>👗 <strong>Dresscode:</strong> Pakaian favoritmu yang paling nyaman & cantik</p>
+              <p>
+                📅 <strong>Waktu:</strong> Sabtu , 7 November 2026, Pukul 9.00 WIB
+              </p>
+              <p>
+                📍 <strong>Lokasi:</strong> Tempat Spesial Kita <a href="https://maps.app.goo.gl/9rfjkf9N7WnXKirW9" target="_blank" className="text-[#b7094c] hover:underline">Lihat di Google Maps</a>
+              </p>
+              <p>
+                👗 <strong>Dresscode:</strong> Maroon Putih
+              </p>
             </div>
 
             {/* Pilihan Rencana Kencan (Chunky 3D Buttons) */}
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <p className="text-xs font-bold text-[#582f0e] mb-2">
                 Pilih rencana kencan yang paling kamu inginkan:
               </p>
@@ -206,7 +228,7 @@ export default function LetterModal({
                   </button>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             {/* Tombol Konfirmasi RSVP */}
             {!rsvpAccepted ? (
@@ -219,7 +241,8 @@ export default function LetterModal({
               </button>
             ) : (
               <div className="bg-[#eaf4e8] border-2 border-emerald-400 text-emerald-950 rounded-xl p-3 text-center font-black text-xs sm:text-sm animate-in fade-in shadow-xs">
-                Yeay! Janji Kencan Terkunci untuk: <u className="text-[#b7094c]">{selectedPlan}</u> 🥰<br />
+                Yeay! Terimakasih Sayanggg 🥰
+                <br />
                 Sampai ketemu nanti ya, sayang!
               </div>
             )}
