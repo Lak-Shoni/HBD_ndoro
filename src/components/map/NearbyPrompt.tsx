@@ -8,6 +8,7 @@ interface NearbyPromptProps {
 
 /**
  * Komponen tombol prompt interaktif yang muncul saat pemain berada di dekat zona (pohon / pos misi).
+ * Didesain dengan tombol 3D chunky bertema cozy.
  */
 export default function NearbyPrompt({
   nearbyZone,
@@ -20,14 +21,14 @@ export default function NearbyPrompt({
     <button
       type="button"
       onClick={() => onInteract(nearbyZone.id)}
-      className="mt-3 bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-bold px-5 py-2.5 rounded-xl shadow-lg border-2 border-yellow-600 animate-pulse cursor-pointer flex items-center gap-2"
+      className="mt-4 bg-[#ffb703] hover:bg-[#fcbf49] text-[#582f0e] font-extrabold px-6 py-3 rounded-2xl border-2 border-[#d4a373] border-b-6 border-b-[#bc6c25] active:border-b-2 active:translate-y-1 shadow-lg transition-all cursor-pointer flex items-center gap-2 select-none animate-pulse"
     >
-      <span>✨</span>
-      <span>
+      <span className="text-xl">✨</span>
+      <span className="text-sm">
         {nearbyZone.id === "tree" && treeStage >= 3 ? (
           <>
             Tekan{" "}
-            <kbd className="bg-white/80 px-2 py-0.5 rounded shadow text-xs">
+            <kbd className="bg-[#fffdf7] px-2 py-0.5 rounded-lg border border-[#d4a373] shadow-xs text-xs font-black">
               Spasi
             </kbd>{" "}
             atau Klik untuk <u>Petik Buah Surat 🍎</u>
@@ -35,7 +36,7 @@ export default function NearbyPrompt({
         ) : nearbyZone.id === "tree" ? (
           <>
             Tekan{" "}
-            <kbd className="bg-white/80 px-2 py-0.5 rounded shadow text-xs">
+            <kbd className="bg-[#fffdf7] px-2 py-0.5 rounded-lg border border-[#d4a373] shadow-xs text-xs font-black">
               Spasi
             </kbd>{" "}
             atau Klik untuk <u>Siram Pohon Harapan 🌱</u>
@@ -43,7 +44,7 @@ export default function NearbyPrompt({
         ) : (
           <>
             Tekan{" "}
-            <kbd className="bg-white/80 px-2 py-0.5 rounded shadow text-xs">
+            <kbd className="bg-[#fffdf7] px-2 py-0.5 rounded-lg border border-[#d4a373] shadow-xs text-xs font-black">
               Spasi
             </kbd>{" "}
             atau Klik di Sini untuk Interaksi dengan <u>{nearbyZone.label}</u>
@@ -53,4 +54,3 @@ export default function NearbyPrompt({
     </button>
   );
 }
-

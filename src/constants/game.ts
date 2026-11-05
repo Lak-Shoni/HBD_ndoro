@@ -20,8 +20,15 @@ export const ZONES: Zone[] = [
   { id: "game3", label: "Pos 3: Hidden Object", x: 60, y: 430, width: 110, height: 110 },
 ];
 
-// Pos 1: Ikon Pasangan Kartu Memori
-export const CARD_ITEMS: string[] = ["❤️", "🌹", "🧸", "🍫", "💍", "💌"];
+// Pos 1: Foto Pasangan Kartu Memori (Issue #26)
+export const CARD_ITEMS: string[] = [
+  "/photos/memori-1.JPG",
+  "/photos/memori-2.JPG",
+  "/photos/memori-3.JPG",
+  "/photos/memori-4.JPG",
+  "/photos/memori-5.JPG",
+  "/photos/memori-6.JPG",
+];
 
 // Pos 3: Titik Koordinat Tetes Air Tersembunyi
 export const INITIAL_HIDDEN_ITEMS: HiddenItem[] = [

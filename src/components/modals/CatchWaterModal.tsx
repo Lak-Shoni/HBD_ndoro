@@ -1,11 +1,16 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import type { FallingItem } from "../../types/game";
+import { playSfx } from "../../utils/audio";
 
 interface CatchWaterModalProps {
   onWin: () => void;
   onClose: () => void;
 }
 
+/**
+ * Komponen Modal Pos 2: Tangkap Tetes Air Murni (Target 23 Tetes)
+ * Didesain dengan gaya cozy scrapbook, kontrol 3D tactile, dan sound effects.
+ */
 export default function CatchWaterModal({ onWin, onClose }: CatchWaterModalProps) {
   const [score, setScore] = useState<number>(0);
   const [bucketX, setBucketX] = useState<number>(148); // range: 0 s.d. 296
@@ -23,6 +28,7 @@ export default function CatchWaterModal({ onWin, onClose }: CatchWaterModalProps
     if (score >= 23 && !isGameWon) {
       setIsGameWon(true);
       setItems([]); // bersihkan objek jatuh
+      playSfx("win");
     }
   }, [score, isGameWon]);
 
@@ -32,14 +38,14 @@ export default function CatchWaterModal({ onWin, onClose }: CatchWaterModalProps
 
     const spawnInterval = setInterval(() => {
       const rand = Math.random();
-      let type: 'water' | 'leaf' | 'bomb' = 'water';
+      let type: "water" | "leaf" | "bomb" = "water";
 
       if (rand < 0.60) {
-        type = 'water'; // 60%
+        type = "water"; // 60%
       } else if (rand < 0.85) {
-        type = 'leaf'; // 25%
+        type = "leaf"; // 25%
       } else {
-        type = 'bomb'; // 15%
+        type = "bomb"; // 15%
       }
 
       const newItem: FallingItem = {
@@ -73,12 +79,15 @@ export default function CatchWaterModal({ onWin, onClose }: CatchWaterModalProps
           const isCollidingX = item.x + 32 >= currentBucketX && item.x <= currentBucketX + 64;
 
           if (isCollidingY && isCollidingX) {
-            // Objek tertangkap ember! Perbarui skor berdasarkan jenis objek
+            // Objek tertangkap ember! Mainkan SFX dan perbarui skor
             if (item.type === "water") {
+              playSfx("water");
               setScore((prev) => Math.min(23, prev + 1));
             } else if (item.type === "leaf") {
+              playSfx("hit");
               setScore((prev) => Math.max(0, prev - 1));
             } else if (item.type === "bomb") {
+              playSfx("hit");
               setScore((prev) => Math.max(0, prev - 3));
             }
             continue;
@@ -130,16 +139,16 @@ export default function CatchWaterModal({ onWin, onClose }: CatchWaterModalProps
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl border-4 border-cyan-400 animate-in fade-in zoom-in-95 duration-150">
+      <div className="bg-[#fffdf7] rounded-3xl p-6 max-w-md w-full shadow-[0_12px_0_#bc8a5f] border-4 border-[#d4a373] animate-in fade-in zoom-in-95 duration-150">
         {/* Header Modal */}
         <div className="flex items-center justify-between mb-1">
-          <h2 className="text-xl font-bold text-gray-800">
-            Pos 2: Kumpulkan 23 Tetes Air
+          <h2 className="text-xl font-black text-[#582f0e] tracking-tight">
+            Pos 2: Kumpulkan 23 Tetes Air 🪣💧
           </h2>
           <button
             type="button"
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 font-bold text-xl px-2 py-1 cursor-pointer transition-colors"
+            className="text-[#99582a] hover:text-[#582f0e] font-black text-xl px-2 py-1 cursor-pointer transition-colors"
             aria-label="Tutup"
           >
             ✕
@@ -148,10 +157,10 @@ export default function CatchWaterModal({ onWin, onClose }: CatchWaterModalProps
 
         {/* Indikator Skor & Petunjuk */}
         <div className="flex items-center justify-between mb-3 text-xs">
-          <span className="font-extrabold text-cyan-700 bg-cyan-50 border border-cyan-200 px-3 py-1 rounded-lg text-sm">
-            💧 Air Terkumpul: <strong className="text-base text-cyan-900">{score}</strong> / 23
+          <span className="font-black text-cyan-800 bg-cyan-50 border-2 border-cyan-200 px-3 py-1.5 rounded-xl text-sm shadow-xs">
+            💧 Air Terkumpul: <strong className="text-base text-cyan-950">{score}</strong> / 23
           </span>
-          <span className="text-gray-500 font-semibold bg-gray-50 px-2 py-1 rounded-md border border-gray-200">
+          <span className="text-[#6f4e37] font-bold bg-[#faedcd] px-2.5 py-1.5 rounded-xl border-2 border-[#d4a373]">
             💧 +1 | 🍃 -1 | 💣 -3
           </span>
         </div>
@@ -166,13 +175,13 @@ export default function CatchWaterModal({ onWin, onClose }: CatchWaterModalProps
           onTouchMove={(e) => {
             if (e.touches[0]) handlePointerMove(e.touches[0].clientX);
           }}
-          className="w-[360px] h-[400px] relative overflow-hidden bg-gradient-to-b from-sky-100 to-sky-200 rounded-xl border-2 border-sky-400 mx-auto select-none cursor-ew-resize shadow-inner"
+          className="w-[360px] h-[400px] relative overflow-hidden bg-gradient-to-b from-[#e0f2fe] via-[#bae6fd] to-[#7dd3fc] rounded-2xl border-4 border-[#38bdf8] mx-auto select-none cursor-ew-resize shadow-inner"
         >
           {/* Objek Jatuh (Air, Daun, Bom) */}
           {items.map((item) => (
             <div
               key={item.id}
-              className="absolute w-8 h-8 flex items-center justify-center text-2xl select-none pointer-events-none drop-shadow-sm"
+              className="absolute w-8 h-8 flex items-center justify-center text-2xl select-none pointer-events-none drop-shadow-md"
               style={{ left: `${item.x}px`, top: `${item.y}px` }}
             >
               {item.type === "water" && "💧"}
@@ -183,7 +192,7 @@ export default function CatchWaterModal({ onWin, onClose }: CatchWaterModalProps
 
           {/* Ember (Catcher) */}
           <div
-            className="absolute bottom-2 w-16 h-10 flex items-center justify-center text-4xl select-none transition-[left] duration-75 pointer-events-none drop-shadow-md"
+            className="absolute bottom-2 w-16 h-10 flex items-center justify-center text-4xl select-none transition-[left] duration-75 pointer-events-none drop-shadow-lg"
             style={{ left: `${bucketX}px` }}
           >
             🪣
@@ -191,18 +200,18 @@ export default function CatchWaterModal({ onWin, onClose }: CatchWaterModalProps
 
           {/* Overlay Kemenangan saat Target 23 Air Tercapai */}
           {isGameWon && (
-            <div className="absolute inset-0 bg-cyan-950/75 backdrop-blur-xs flex flex-col items-center justify-center p-6 text-center animate-in fade-in zoom-in-95 duration-200 z-20">
+            <div className="absolute inset-0 bg-[#082f49]/80 backdrop-blur-xs flex flex-col items-center justify-center p-6 text-center animate-in fade-in zoom-in-95 duration-200 z-20">
               <span className="text-5xl mb-2 animate-bounce">🪣💧✨</span>
-              <h3 className="text-xl font-extrabold text-white mb-2 leading-tight">
+              <h3 className="text-xl font-black text-white mb-2 leading-tight">
                 Luar Biasa! Embermu Sudah Penuh 23 Tetes Air! 🪣💧
               </h3>
-              <p className="text-cyan-200 text-xs mb-4">
+              <p className="text-cyan-200 text-xs mb-4 font-medium">
                 Air murni berhasil dikumpulkan untuk menyiram Pohon Harapan!
               </p>
               <button
                 type="button"
                 onClick={onWin}
-                className="bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl w-full shadow-lg hover:shadow-emerald-400/40 cursor-pointer transition-all text-sm"
+                className="bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white font-black py-3 px-4 rounded-2xl w-full border-2 border-emerald-600 border-b-6 border-b-emerald-800 active:border-b-2 active:translate-y-1 shadow-lg cursor-pointer transition-all text-sm"
               >
                 Ambil 1 Air 💧 & Kembali ke Map
               </button>
@@ -210,19 +219,19 @@ export default function CatchWaterModal({ onWin, onClose }: CatchWaterModalProps
           )}
         </div>
 
-        {/* Tombol Kontrol Layar di Bawah Arena */}
+        {/* Tombol Kontrol Layar di Bawah Arena (Chunky 3D Buttons) */}
         <div className="flex justify-between items-center mt-3 gap-3">
           <button
             type="button"
             onClick={() => moveBucket(-25)}
-            className="flex-1 bg-cyan-600 hover:bg-cyan-500 active:bg-cyan-700 text-white font-bold py-2 px-3 rounded-xl shadow cursor-pointer text-sm select-none"
+            className="flex-1 bg-cyan-600 hover:bg-cyan-500 active:bg-cyan-700 text-white font-black py-2.5 px-3 rounded-2xl border-2 border-cyan-700 border-b-4 border-b-cyan-900 active:border-b-0 active:translate-y-1 shadow-md cursor-pointer text-sm select-none transition-all"
           >
             ⬅️ Geser Kiri
           </button>
           <button
             type="button"
             onClick={() => moveBucket(25)}
-            className="flex-1 bg-cyan-600 hover:bg-cyan-500 active:bg-cyan-700 text-white font-bold py-2 px-3 rounded-xl shadow cursor-pointer text-sm select-none"
+            className="flex-1 bg-cyan-600 hover:bg-cyan-500 active:bg-cyan-700 text-white font-black py-2.5 px-3 rounded-2xl border-2 border-cyan-700 border-b-4 border-b-cyan-900 active:border-b-0 active:translate-y-1 shadow-md cursor-pointer text-sm select-none transition-all"
           >
             Geser Kanan ➡️
           </button>
@@ -231,4 +240,3 @@ export default function CatchWaterModal({ onWin, onClose }: CatchWaterModalProps
     </div>
   );
 }
-
